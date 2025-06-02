@@ -14,6 +14,7 @@ from services.external_services   import get_stock_data
 from services.purchase_service    import create_purchase
 from datetime                     import datetime
 from config                       import Config
+from logger_config                import setup_post_logger, setup_error_logger
     
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -21,6 +22,21 @@ app.json.sort_keys = False
 
 db.init_app(app)
 cache = Cache(app)
+
+post_logger  = setup_post_logger()
+error_logger = setup_error_logger()
+@app.before_request
+def log_post_requests():
+    if request.method == 'POST':
+        post_logger.info(
+            f"Endpoint: {request.path} | IP: {request.remote_addr} | Payload: {request.get_json(silent=True)}"
+        )
+@app.errorhandler(Exception)
+def handle_exception(e):
+    error_logger.error(
+        f"Erro em {request.path} | IP: {request.remote_addr} | Exception: {str(e)}"
+    )
+    return jsonify({"error": "Erro interno do servidor"}), 500        
 
 @app.route('/stock/<symbol>', methods=['GET','POST'])
 @app.route('/stock/<symbol>/<date>', methods=['GET'])

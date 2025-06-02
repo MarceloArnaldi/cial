@@ -79,6 +79,10 @@ CREATE TABLE purchases (
 Demo Deploy em Docker/EC2: http://52.70.224.64:8000
 Esse demo não tem gerenciamento de API como (API Gateway/API Management/Apigee), nenhum controle de consumo e proteção de ataques (WAF).
 
+Log
+log de erros        : logs\errors.log
+log de solicitação  : logs\post_requests.log
+
 Instalação
 
 git clone https://github.com/MarceloArnaldi/cial.git
