@@ -1,6 +1,6 @@
 #
 # API Stock
-# Versao 1.000.00 - 2025-05-31 
+# Versao 1.000.00 - 2025-06-03 
 # Autor Marcelo Arnaldi
 #
 # GET  /purchases
@@ -70,8 +70,8 @@ def stock_info(symbol, date=None):
 
 @app.route('/purchases', methods=['GET'])
 def handle_purchase():
-    users = Purchase.query.all()
-    return jsonify([user.to_dict() for user in users])
+    purchases = Purchase.query.all()
+    return jsonify([purchase.to_dict() for purchase in purchases])
 
 if __name__ == '__main__':
     with app.app_context():

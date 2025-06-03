@@ -67,7 +67,6 @@ def get_marketwatch_data(symbol: str):
     competitors = []
     rows = competitors_table.find_all('tr')
     for row in rows:
-        col = row.find('td')
         cols = row.find_all('td')
         if cols:
             nome       = cols[0].find('a').get_text(strip=True)
