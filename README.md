@@ -14,6 +14,11 @@ git clone https://github.com/MarceloArnaldi/cial.git
 cd cial
 docker-compose up -d
 ```
+## Demo on AWS EC2
+Demo running with Gunicorn (WSGI)
+```
+
+```
 
 ## Resources 
 

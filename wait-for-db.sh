@@ -7,4 +7,4 @@ until pg_isready -h db -p 5432 -U postgres; do
 done
 
 echo "Banco de dados está pronto! Iniciando app..."
-exec python app.py
+exec "$@"

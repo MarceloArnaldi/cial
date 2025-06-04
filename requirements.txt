@@ -9,3 +9,4 @@ dotenv
 pytest
 flask-testing
 pytest-mock
+gunicorn
