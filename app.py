@@ -9,13 +9,14 @@
 #
 from flask                        import Flask, jsonify, request 
 from flask_caching                import Cache
+from config                       import Config
 from models                       import db, Purchase
 from services.external_services   import get_stock_data
 from services.purchase_service    import create_purchase
-from datetime                     import datetime
-from config                       import Config
+from services.get_logs_services   import get_logs
 from logger_config                import setup_post_logger, setup_error_logger
-    
+from datetime                     import datetime
+
 app = Flask(__name__)
 app.config.from_object(Config)
 app.json.sort_keys = False
@@ -36,7 +37,10 @@ def handle_exception(e):
     error_logger.error(
         f"Erro em {request.path} | IP: {request.remote_addr} | Exception: {str(e)}"
     )
-    return jsonify({"error": "Erro interno do servidor"}), 500        
+    return jsonify({"error": "internal Server Error"}), 500        
+@app.errorhandler(404)
+def handle_404(e):
+    return jsonify({"error": "resource not found"}), 404
 
 @app.route('/stock/<symbol>', methods=['GET','POST'])
 @app.route('/stock/<symbol>/<date>', methods=['GET'])
@@ -73,7 +77,12 @@ def handle_purchase():
     purchases = Purchase.query.all()
     return jsonify([purchase.to_dict() for purchase in purchases])
 
+@app.route('/logs/<log_type>', methods=['GET'])
+def logs_endpoint(log_type):
+    data = get_logs(log_type)
+    return jsonify(data["body"]), data["status"]    
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)

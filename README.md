@@ -101,6 +101,7 @@ CREATE TABLE purchases (
 Files are automatically rotated after 1 MB.
 
 ## Test
+pytest
 
 
 
