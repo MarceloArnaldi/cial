@@ -7,7 +7,7 @@
 # GET  /stock/<stock_symbol>/<date>
 # POST /stock/<stock_symbol>
 #
-from flask                        import Flask, jsonify, request 
+from flask                        import Flask, jsonify, request, render_template
 from flask_caching                import Cache
 from config                       import Config
 from models                       import db, Purchase
@@ -32,15 +32,21 @@ def log_post_requests():
         post_logger.info(
             f"Endpoint: {request.path} | IP: {request.remote_addr} | Payload: {request.get_json(silent=True)}"
         )
+
 @app.errorhandler(Exception)
 def handle_exception(e):
     error_logger.error(
         f"Erro em {request.path} | IP: {request.remote_addr} | Exception: {str(e)}"
     )
-    return jsonify({"error": "internal Server Error"}), 500        
+    return jsonify({"error": "internal Server Error"}), 500
+        
 @app.errorhandler(404)
 def handle_404(e):
     return jsonify({"error": "resource not found"}), 404
+
+@app.route('/')
+def health_check():
+    return render_template('health.html')
 
 @app.route('/stock/<symbol>', methods=['GET','POST'])
 @app.route('/stock/<symbol>/<date>', methods=['GET'])
@@ -83,6 +89,4 @@ def logs_endpoint(log_type):
     return jsonify(data["body"]), data["status"]    
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()  
     app.run(host="0.0.0.0", port=5000, debug=True)

@@ -9,15 +9,18 @@ It allows recording stock purchase requests, which are stored in a PostgreSQL da
 ---
 
 ## Installation
+*in a production environment run on k8s in separate pods
 ```bash
 git clone https://github.com/MarceloArnaldi/cial.git
 cd cial
-docker-compose up -d
+docker-compose up --build -d
+docker-compose run --rm init-db
 ```
 ## Demo on AWS EC2
 Demo running with Gunicorn (WSGI)
+*This environment FALTA WAF, API Gateway and certificate
 ```
-
+http://52.70.224.64:8000
 ```
 
 ## Resources 
