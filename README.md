@@ -9,7 +9,8 @@ It allows recording stock purchase requests, which are stored in a PostgreSQL da
 Doubtful points and considerations:    
 
 [GET] /stock/{stock_symbol}  
-"Purchased_amount" or "purchased_status" were not found in Polygon or MarketWatch, so they were considered as "0" and "not_purchased".
+"Purchased_amount" or "purchased_status" were not found in Polygon or MarketWatch, so they were considered as "0" and "not_purchased".  
+The market_cap key value was set to string because it represents multiple currencies.  
 
 [POST] /stock/{stock_symbol}  
 Considered for the "purchase" table the structure:
@@ -22,6 +23,7 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ```  
 Logs  
 Logs store locally, errors and POST transaction events.
+
 
 ---
 

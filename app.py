@@ -10,7 +10,7 @@
 from flask                        import Flask, jsonify, request, render_template
 from flask_caching                import Cache
 from config.config                import Config
-from models                       import db, Purchase
+from models.purchase              import db, Purchase
 from services.external_services   import get_stock_data
 from services.purchase_service    import create_purchase
 from services.get_logs_services   import get_logs

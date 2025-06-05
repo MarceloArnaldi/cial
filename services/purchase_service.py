@@ -1,4 +1,4 @@
-from models import db, Purchase
+from models.purchase import db, Purchase
 from datetime import datetime
 
 def create_purchase(stock: str, amount_: str):
