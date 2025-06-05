@@ -1,29 +1,45 @@
 # API Stock
 
-A Flask API that retrieves financial stock data from Polygon.io and extracts information from the MarketWatch website.  
+A Flask API - web scraper - that retrieves financial stock data from Polygon.io and extracts information from the MarketWatch website.  
 It allows recording stock purchase requests, which are stored in a PostgreSQL database.
 
 - [MarketWatch - Exemplo AAPL](https://www.marketwatch.com)
 - https://api.polygon.io/v1/open-close/AAPL/2025-05-30
 
+Doubtful points and considerations:    
+
+[GET] /stock/{stock_symbol}  
+"Purchased_amount" or "purchased_status" were not found in Polygon or MarketWatch, so they were considered as "0" and "not_purchased".
+
+[POST] /stock/{stock_symbol}  
+Considered for the "purchase" table the structure:
+```sql
+id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+stock_symbol VARCHAR(10) NOT NULL,
+purchase_date DATE NOT NULL,
+amount INTEGER NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+```  
+Logs  
+Logs store locally, errors and POST transaction events.
+
 ---
 
 ## Installation
-*in a production environment run on k8s in separate pods
+In a production environment run on k8s in separate pods
 ```bash
 git clone https://github.com/MarceloArnaldi/cial.git
 cd cial
 docker-compose up --build -d
 docker-compose run --rm init-db
 ```
-## Demo on AWS EC2
-Demo running with Gunicorn (WSGI)
-*This environment FALTA WAF, API Gateway and certificate
-```
-http://52.70.224.64:8000
-```
-
 ## Resources 
+
+### `GET /`
+Health Check
+
+### `GET /logs/error`
+Health Check
 
 ### `GET /purchases`
 Returns all recorded stock purchase requests.

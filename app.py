@@ -9,12 +9,12 @@
 #
 from flask                        import Flask, jsonify, request, render_template
 from flask_caching                import Cache
-from config                       import Config
+from config.config                import Config
 from models                       import db, Purchase
 from services.external_services   import get_stock_data
 from services.purchase_service    import create_purchase
 from services.get_logs_services   import get_logs
-from logger_config                import setup_post_logger, setup_error_logger
+from config.logger_config         import setup_post_logger, setup_error_logger
 from datetime                     import datetime
 
 app = Flask(__name__)

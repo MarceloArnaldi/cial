@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Response, abort, jsonify
-from logger_config import setup_error_logger
+from config.logger_config import setup_error_logger
 
 LOG_DIR = 'logs'
 LOG_FILES = {
