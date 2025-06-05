@@ -76,7 +76,7 @@ CREATE TABLE purchases (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-Demo Deploy em Docker/EC2: http://52.70.224.64:8000
+Demo Deploy em Docker/EC2: 
 Esse demo não tem gerenciamento de API como (API Gateway/API Management/Apigee), nenhum controle de consumo e proteção de ataques (WAF).
 
 Instalação
