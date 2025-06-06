@@ -24,17 +24,44 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 Logs  
 Logs store locally, errors and POST transaction events.
 
-
 ---
 
 ## Installation
-In a production environment run on k8s in separate pods
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### 1 Clone the repository
 ```bash
 git clone https://github.com/MarceloArnaldi/cial.git
 cd cial
-docker-compose up --build -d
-docker-compose run --rm init-db
 ```
+### 2 Create a .env file
+```env
+POLYGON_API_KEY=<your-polygon-api-key>
+DATABASE_URL=postgresql://postgres:<your-password>@localhost:5432/postgres
+```
+### 3 Build and start the containers
+```bash
+docker-compose up --build -d
+```
+### 4 The application
+Once the containers are running, the application will be available at:
+```bash
+http://localhost:8000
+```
+
+
+## Production Recommendations
+
+For production environments, it is recommended to run this application using Kubernetes, with each service running in separate pods. This approach provides better scalability, resilience, and maintainability compared to a single Docker Compose setup.
+
+
+---
+
 ## Resources 
 
 ### `GET /`
