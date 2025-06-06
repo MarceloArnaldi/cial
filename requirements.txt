@@ -6,3 +6,7 @@ requests
 beautifulsoup4
 lxml
 dotenv
+pytest
+flask-testing
+pytest-mock
+gunicorn

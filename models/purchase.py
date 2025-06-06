@@ -5,7 +5,7 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class Purchase(db.Model):
-    __tablename__ = 'purchase'
+    __tablename__ = 'purchases'
     
     id            = db.Column(db.UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     stock_symbol  = db.Column(db.String(10), nullable=False)
